@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block content %}
+<div style="width: 100%; overflow: hidden;">
+<div  style="width: 500px; float: left;">
+<p>
+Disease Classifier is implemented using two datasets from kaggle.
+Transfer Learning has been used to implement VGG19, ResNet50, Inception_v3 in Keras.
+The program also uses template matching using normalized cross correlation (built from scratch)
+to detect whether the uploaded image is a lung image or a malaria parasite image.
+The app is developed in Python, Flask, Javascript, HTML, CSS.
+</p>
+<ul>
+  <li>
+    https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia
+    </li>
+    <li>
+      https://www.kaggle.com/iarunava/cell-images-for-detecting-malaria
+      </li>
+  </ul>
+<b>Sample Images:</b><br>
+<img src="{{ url_for('static', filename='assets/lung.jpeg') }}" alt="Lung" width="150" height="150">
+<img src="{{ url_for('static', filename='assets/malaria.jpeg') }}" alt="Malaria" width="150" height="150" >
+<p>Lung X-ray &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; Malaria</p>
+<!-- <div class="vl"></div> -->
+</div>
+<div style="margin-left: 550px;">
+  <div class='image-form'>
+    <form id="upload-file" method="post" enctype="multipart/form-data">
+        <label for="disease"><b>Choose a Dataset:</b></label>
+        <select name="disease" id="disease" class="form-control form-control-inline">
+          <option value="lung">Lung Disease</option>
+          <option value="malaria">Malaria</option>
+        </select>&nbsp;&nbsp;
+        <label for="model"><b>Choose a Model:</b></label>
+        <select name="model" id="model" class="form-control form-control-inline">
+          <option value="vgg">VGG</option>
+          <option value="resnet">ResNet</option>
+          <option value="inception">Inception</option>
+        </select><br><br>
+        <label for="imageUpload" class="upload-label">
+            Choose Image..
+        </label>
+        <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+    </form>
+    </div>
+    <div class="image-section">
+        <div class="img-preview">
+            <div id="imagePreview">
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary btn-lg " id="btn-predict">Predict!</button>
+        </div>
+    </div>
+    <div class="loader" style="display:none;"></div>
+    <p id="result">
+        <span> </span>
+    </p>
+
+</div>
+</div>
+{% endblock %}
